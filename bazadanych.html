@@ -205,7 +205,27 @@
             <h4>Staszek Wielki</h4>
             <p>Rozpoczął bójke</p>
         </div>
+        <div class="faq-item">
+            <h4>Krzysztof Zakis</h4>
+            <p>Kilka miesięcy temu zaatakował strażnika miejskiego siekierą.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Piotr Ciechanowski</h4>
+            <p>Aktualnie brak</p>
+        </div>
     </div>
+    <!-- Panel po zalogowaniu -->
+<center><div id="panel" class="faq">
+    <h2>🛑 DO ZATRZYMANIA :</h2>
+    <!-- FAQ -->
+    <div class="faq">
+        <h2>Osoby</h2>
+        <div class="faq-item">
+            <h4>Staszek Wielki/Duży</h4>
+            <p>Osoba wprowadziła w błąd organ państwowy zgodnie z art. 65 KW, doprowadzić na PDOZ. Wrazie zatrzymania prosimy o kontakt z komendantem lub bezpośrednio z sądem. Osoba rozpoczeła bójkę na rynku.</p>
+            <img src="poszukiwani/1.png" alt="Opis obrazka">
+        </div>
+    </div></center>
     <script>
         document.querySelectorAll('.faq-item h4').forEach(item => {
             item.addEventListener('click', () => {
@@ -217,7 +237,7 @@
 <script>
     function checkPassword() {
         var password = document.getElementById("password").value;
-        if (password === "strazmiejskawww") {
+        if (password === "StrazMiejska_DB") {
             document.getElementById("login-container").style.display = "none";
             document.getElementById("panel").style.display = "block";
         } else {
