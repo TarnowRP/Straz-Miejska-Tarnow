@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baza Danych</title>
+    <link rel="icon" type="image/png" href="sm.png"> <!-- Dodane logo w zakładce -->
     <style>
         * {
             margin: 0;
@@ -16,46 +17,40 @@
             color: #333;
             text-align: center;
         }
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
         .login-container {
             width: 100vw;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            background: #464545;
-            padding: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 14px 22px;
-            font-size: 16px;
-            font-weight: bold;
-            transition: 0.3s;
-            border-radius: 5px;
-        }
-        nav a:hover {
-            background: #9b9a9a;
-            transform: scale(1.1);
+            background: #f4f4f4;
         }
         .login-box {
             background: white;
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
             text-align: center;
+            transition: 0.3s;
+            animation: fadeIn 1s ease-in-out;
         }
-        input {
+        input, textarea {
             padding: 12px;
             width: 80%;
             border: 1px solid #ccc;
             border-radius: 5px;
             margin-bottom: 15px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
         button {
             padding: 12px 20px;
@@ -65,184 +60,145 @@
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
-            transition: background 0.3s;
         }
         button:hover {
             background-color: #0033aa;
-        }
-        .hidden {
-            display: none;
         }
         .panel {
             display: none;
             width: 100vw;
             min-height: 100vh;
             padding: 40px;
-            background: #f4f4f4;
-        }
-        .panel h2 {
-            margin-bottom: 20px;
-            font-size: 28px;
-            color: #002366;
-        }
-        .container-docs {
+            background: #ececec;
             display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
         }
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-            text-align: center;
-            width: calc(33.333% - 30px);
-            transition: 0.3s;
-        }
-        .card:hover {
-            transform: scale(1.05);
-        }
-        .news, .faq {
+        .faq {
             width: 80%;
-            margin: 20px auto;
+            max-width: 800px;
             background: white;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        .news h2, .faq h2 {
-            color: #0044cc;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .news-item h4 {
-            color: #ff1e35;
-            margin-bottom: 8px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
         }
         .faq-item {
-            border-bottom: 1px solid #ddd;
-            padding: 10px 0;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            background: #f9f9f9;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
-        .faq-item:last-child {
-            border-bottom: none;
+        .wanted-card {
+            background: #ffdddd;
+            border: 2px solid #ff0000;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(255, 0, 0, 0.3);
+            text-align: center;
+            margin-top: 20px;
+            width: 300px;
         }
-        .faq-item h4 {
-            color: #0044cc;
-            cursor: pointer;
-        }
-        .faq-item p {
-            display: none;
-            margin-top: 5px;
-        }
-        .card h3 {
-            color: #0044cc;
-            margin-bottom: 15px;
-        }
-        .card a {
-            display: inline-block;
-            padding: 12px 20px;
-            margin-top: 15px;
-            background-color: #ff4b5c;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        .card a:hover {
-            background-color: #ff1e35;
-        }
-        @media (max-width: 768px) {
-            .card {
-                width: 100%;
-            }
+        .wanted-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
 
 <!-- Ekran logowania -->
-<div class="login-container" id="login-container">
+<div class="login-container fade-in" id="login-container">
     <div class="login-box">
         <h2>Baza Danych</h2>
-        <p>Wprowadź hasło, aby uzyskać dostęp.</p>
+        <p>Wprowadź email i hasło, aby uzyskać dostęp.</p>
+        <input type="text" id="email" placeholder="Wpisz email"><br>
         <input type="password" id="password" placeholder="Wpisz hasło">
-        <button onclick="checkPassword()">Otwórz</button>
+        <button onclick="login()">Zaloguj się</button>
     </div>
 </div>
 
-
-<nav>
-    <a href="index.html">Strona Główna</a>
-    <a href="straznik.html">Dla Strażnika</a>
-</nav>
 <!-- Panel po zalogowaniu -->
-<div id="panel" class="panel">
-    <h2>📂 Baza Danych</h2>
-    <!-- FAQ -->
-    <div class="faq">
-        <h2>Osoby</h2>
-        <div class="faq-item">
-            <h4>Tomasz Jabłoński</h4>
-            <p>Kierowca BMW GC 36, Z3 MEVA, nie ustąpił pierwszeństwa pojazdu uprzewylejowanemu które jechał na sygnałach na interwencję. Kierujący BMW nie stosował się do poleceń funkcjonarjuszy. Na miejsce został wezwany patrol policji, kierowca nie przyjął mandatu z art. 90 §2 KW. Sprawa została skierowana do sądu w Tarnowie. Kierowca tamował ruch oraz spowodował kolizję, oraz niszczenie zieleni.</p>
-        </div>
-        <div class="faq-item">
-            <h4>Michał Nowak</h4>
-            <p>Funkcjonariusz Policji w Tarnowie pan Michał Nowak kierował bez uprawnień pojazdem marki Mercedes Sprinter, kierowca został ukarany mandatem 1500 zł za jazdę po chodniku . Wyżej wymieniony potrącił funkcjonariusza straży miejskiej Krystiana Wypija, później spowodował kolizję z pojazdem marki Volvo fl280 4x4 w zabudowie firmy bocar który służy w Jednostce Ratowniczo Gaśniczej w Tarnowie, skutki kolizji: Zbita lampa i wykrzywiona belka dolna koszty napraw około 30tyś złotych.</p>
-        </div>
-        <div class="faq-item">
-            <h4>Piotr Hudson</h4>
-            <p>Spowodował zagrożenie w ruchu lądowym. Funkcjonariusz policji, sąd wymierzył Piotrowi H. karę w wysokości 10 000 tysięcy złotych. Jak i odbycie kursu z zakresu bezpieczeństwa w RD</p>
-        </div>
-        <div class="faq-item">
-            <h4>Mariola Grech, Filip Kośmider, Marlena Kościelna</h4>
-            <p>Przyjelismy do tarnowa trojka osob. Poszli usiasc na lawke, zastali tam prokuratowa rejenowego . Zaczal lapac pania za udo, nie przestal wiec kolezaka zaczela sie z nim szarpac. Zaczal ja dotykac po miejscu intymnym, kolega blondyn przypatrywal sie tylko. Grażyna Kościelna (n.r 112233 g-mail grazynkakoscielna.kochawnuczke.@gmail.com )
-                Jana pawła II 57/B
-                Dzierżona
-            </p>
-        </div>
-        <div class="faq-item">
-            <h4>Staszek Wielki</h4>
-            <p>Rozpoczął bójke</p>
-        </div>
-        <div class="faq-item">
-            <h4>Krzysztof Zakis</h4>
-            <p>Kilka miesięcy temu zaatakował strażnika miejskiego siekierą.</p>
-        </div>
-        <div class="faq-item">
-            <h4>Piotr Ciechanowski</h4>
-            <p>Aktualnie brak</p>
-        </div>
-    </div>
-    <!-- Panel po zalogowaniu -->
-<center><div id="panel" class="faq">
-    <h2>🛑 DO ZATRZYMANIA :</h2>
-    <!-- FAQ -->
-    <div class="faq">
-        <h2>Osoby</h2>
-        <div class="faq-item">
-            <h4>Staszek Wielki/Duży</h4>
-            <p>Osoba wprowadziła w błąd organ państwowy zgodnie z art. 65 KW, doprowadzić na PDOZ. Wrazie zatrzymania prosimy o kontakt z komendantem lub bezpośrednio z sądem. Osoba rozpoczeła bójkę na rynku.</p>
-            <img src="poszukiwani/1.png" alt="Opis obrazka">
-        </div>
-    </div></center>
-    <script>
-        document.querySelectorAll('.faq-item h4').forEach(item => {
-            item.addEventListener('click', () => {
-                item.nextElementSibling.style.display = 
-                    item.nextElementSibling.style.display === "block" ? "none" : "block";
-            });
-        });
-    </script>
+<div id="panel" class="panel"></div>
+
 <script>
-    function checkPassword() {
-        var password = document.getElementById("password").value;
-        if (password === "StrazMiejska_DB") {
-            document.getElementById("login-container").style.display = "none";
-            document.getElementById("panel").style.display = "block";
+    const users = [
+        { email: "piotrtarko@strazmiejska.pl", password: "piotr_t21" },
+        { email: "krystianwypij@strazmiejska.pl", password: "kwypij_90" },
+        { email: "alankowal@strazmiejska.pl", password: "akowal_15" },
+        { email: "patrykwrona@strazmiejska.pl", password: "pwrona_133" },
+        { email: "mpieniazek@strazmiejska.pl", password: "mpieniazek-134" },
+        { email: "buguslawguz@strazmiejska.pl", password: "bguz-1239" },
+        { email: "admin", password: "admin" }
+    ];
+
+    const people = [
+        { name: "Tomasz Jabłoński", details: "Kierowca BMW GC 36, Z3 MEVA, nie ustąpił pierwszeństwa pojazdu uprzewylejowanemu które jechał na sygnałach na interwencję. Kierujący BMW nie stosował się do poleceń funkcjonarjuszy. Na miejsce został wezwany patrol policji, kierowca nie przyjął mandatu z art. 90 §2 KW. Sprawa została skierowana do sądu w Tarnowie. Kierowca tamował ruch oraz spowodował kolizję, oraz niszczenie zieleni.", image: "poszukiwani/tj.png", wanted: false },
+        { name: "Michał Nowak", details: "Funkcjonariusz Policji w Tarnowie pan Michał Nowak kierował bez uprawnień pojazdem marki Mercedes Sprinter, kierowca został ukarany mandatem 1500 zł za jazdę po chodniku . Wyżej wymieniony potrącił funkcjonariusza straży miejskiej Krystiana Wypija, później spowodował kolizję z pojazdem marki Volvo fl280 4x4 w zabudowie firmy bocar który służy w Jednostce Ratowniczo Gaśniczej w Tarnowie, skutki kolizji: Zbita lampa i wykrzywiona belka dolna koszty napraw około 30tyś złotych.", image: "poszukiwani/brak.png", wanted: false },
+        { name: "Piotr Hudson", details: "Spowodował zagrożenie w ruchu lądowym. Funkcjonariusz policji, sąd wymierzył Piotrowi H. karę w wysokości 10 000 tysięcy złotych. Jak i odbycie kursu z zakresu bezpieczeństwa w RD", image: "poszukiwani/brak.png", wanted: false },
+        { name: "Staszek Wielki", details: " Osoba wprowadziła w błąd organ, zgodnie z art. 65 KW, doprowadzić na PDOZ. Wrazie zatrzymania prosimy o kontakt z komendantem lub bezpośrednio z sądem. Osoba rozpoczeła bójkę na rynku", image: "poszukiwani/1.png", wanted: true },
+        { name: "Krzysztof Zakis", details: "Kilka miesięcy temu zaatakował strażnika miejskiego siekierą...", image: "poszukiwani/brak.png", wanted: false }
+    ];
+
+    function login() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        const user = users.find(u => u.email === email && u.password === password);
+
+        if (user) {
+            document.getElementById("login-container").style.animation = "fadeOut 0.5s forwards";
+            setTimeout(() => {
+                document.getElementById("login-container").style.display = "none";
+                loadPanel();
+            }, 500);
         } else {
-            alert("Błędne hasło!");
+            alert("Błędny email lub hasło!");
         }
+    }
+
+    function loadPanel() {
+        const panel = document.getElementById("panel");
+        panel.innerHTML = `<h2>📂 Baza Danych</h2>
+            <div class="faq">
+                <h2>Osoby</h2>
+            </div>
+            <div class="wanted">
+                <h2>🚨 Do Zatrzymania</h2>
+            </div>`;
+
+        const faq = panel.querySelector(".faq");
+        const wantedSection = panel.querySelector(".wanted");
+
+        people.forEach(person => {
+            let div = document.createElement("div");
+            div.classList.add(person.wanted ? "wanted-card" : "faq-item");
+
+            let img = document.createElement("img");
+            img.src = person.image;
+            img.alt = person.name;
+
+            let title = document.createElement("h4");
+            title.textContent = person.name;
+
+            let details = document.createElement("p");
+            details.textContent = person.details;
+
+            let input = document.createElement("textarea");
+            input.placeholder = "Dodaj dodatkowe informacje...";
+
+            div.appendChild(img);
+            div.appendChild(title);
+            div.appendChild(details);
+            if (person.wanted) div.appendChild(input);
+
+            if (person.wanted) wantedSection.appendChild(div);
+            else faq.appendChild(div);
+        });
+
+        panel.style.display = "flex";
     }
 </script>
 
